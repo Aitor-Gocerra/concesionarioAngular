@@ -1,6 +1,32 @@
 <h2>Lista de Coches</h2>
-<ul>
-    <li *ngFor = "let coche of listaCoches">
-        {{ coche.id }} - {{ coche.marca }}
-    </li>
-</ul>
+
+<div class="contenedor">
+    <div class="tarjeta" *ngFor="let coche of listaCoches">
+        <img [src]="coche.image" alt="coche" width="150" style="object-fit: cover; height: 100px;">
+        
+        <h3>{{ coche.marca }}</h3>
+        <p>Precio: {{ coche.price }} €</p>
+        
+        <div class="botones">
+            <button class="btn-edit" (click)="modificarCoche(coche)">Editar</button>
+            <button class="btn-delete" (click)="eliminarCoche(coche)">Eliminar</button>
+        </div>
+    </div>
+</div>
+
+<h2>Formulario de registro</h2>
+
+<div class="form-container">
+    <label>Marca:</label>
+    <input type="text" [(ngModel)]="marca" placeholder="Ej: Audi">
+    
+    <label>Precio:</label>
+    <input type="number" [(ngModel)]="price" placeholder="Ej: 20000">
+
+    <label>URL Imagen:</label>
+    <input type="text" [(ngModel)]="image" placeholder="Pegar URL de imagen">
+
+    <button (click)="addCoche()">
+        {{ cocheSeleccionado ? 'Actualizar' : 'Agregar' }} Coche
+    </button>
+</div>
