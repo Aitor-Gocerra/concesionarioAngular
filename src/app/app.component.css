@@ -1,0 +1,28 @@
+:host {
+    display: block;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    color: rgb(19, 103, 206);
+    font-size: 3.5rem;
+    font-weight: 300;
+    margin: 0;
+    padding: 40px 20px 30px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    position: relative;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+h1::after {
+    content: '';
+    display: block;
+    width: 120px;
+    height: 4px;
+    background: linear-gradient(90deg, #fff, #f8f9fa);
+    margin: 15px auto 0;
+    border-radius: 2px;
+}

@@ -1,0 +1,269 @@
+/* Reset básico y fuente profesional */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Contenedor principal con layout de dos columnas */
+.main-container {
+    display: flex;
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: flex-start;
+}
+
+/* Columna izquierda - Formulario */
+.form-section {
+    flex: 0 0 350px;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+}
+
+/* Títulos */
+h2 {
+    color: #2c3e50;
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    position: relative;
+    text-align: center;
+}
+
+h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #3498db, #2980b9);
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+/* Formulario */
+.form-container label {
+    display: block;
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+.form-container input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 2px solid #ecf0f1;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+}
+
+.form-container input:focus {
+    outline: none;
+    border-color: #3498db;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.form-container button {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #27ae60, #229954);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.form-container button:hover {
+    background: linear-gradient(135deg, #229954, #27ae60);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
+}
+
+/* Columna derecha - Lista de coches */
+.list-section {
+    flex: 1;
+}
+
+.list-section h2 {
+    text-align: left;
+    margin-left: 20px;
+}
+
+/* Grid de coches */
+.contenedor {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 20px;
+}
+
+/* Tarjetas de coches */
+.tarjeta {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.tarjeta:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.tarjeta img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.tarjeta:hover img {
+    transform: scale(1.05);
+}
+
+.tarjeta h3 {
+    color: #2c3e50;
+    font-size: 1.3rem;
+    margin: 15px 20px 10px;
+    font-weight: 600;
+}
+
+.tarjeta p {
+    color: #11575d;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0 20px 15px;
+}
+
+/* Botones de acción */
+.botones {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px 20px;
+    gap: 10px;
+}
+
+.btn-edit, .btn-delete {
+    flex: 1;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-edit {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+}
+
+.btn-edit:hover {
+    background: linear-gradient(135deg, #2980b9, #3498db);
+    transform: translateY(-2px);
+}
+
+.btn-delete {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+}
+
+.btn-delete:hover {
+    background: linear-gradient(135deg, #c0392b, #e74c3c);
+    transform: translateY(-2px);
+}
+
+/* RENDERIZACIONES DE DIRECTIVAS */
+/* .precio-caro {
+    color: red;
+    font-weight: bold;
+} */
+
+.tarjeta p.precio-caro {
+  color: red;
+  font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .main-container {
+        flex-direction: column;
+    }
+    
+    .form-section {
+        flex: none;
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        position: relative;
+    }
+    
+    .list-section h2 {
+        text-align: center;
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .contenedor {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .botones {
+        flex-direction: column;
+    }
+    
+    .btn-edit, .btn-delete {
+        width: 100%;
+    }
+}
+
+/* Animación de carga */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tarjeta {
+    animation: fadeIn 0.6s ease-out;
+}
+
+.tarjeta:nth-child(2) { animation-delay: 0.1s; }
+.tarjeta:nth-child(3) { animation-delay: 0.2s; }
+.tarjeta:nth-child(4) { animation-delay: 0.3s; }

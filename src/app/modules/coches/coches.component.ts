@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { CocheService } from 'src/app/services/coche.service';
 
 @Component({
-  selector: 'app-coche',
-  templateUrl: './coche.component.html',
-  styleUrls: ['./coche.component.css']
+  selector: 'app-coches',
+  templateUrl: './coches.component.html',
+  styleUrls: ['./coches.component.css']
 })
-export class CocheComponent {
+export class CochesComponent {
 
   listaCoches: any[] = [];
   marca: string = '';

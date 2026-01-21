@@ -17,6 +17,9 @@
         },
         "@schematics/angular:pipe": {
           "path": "src/app/pipes"
+        },
+        "@schematics/angular:module": {
+          "path": "src/app/modules"
         }
       },
       "root": "",
@@ -107,5 +110,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
