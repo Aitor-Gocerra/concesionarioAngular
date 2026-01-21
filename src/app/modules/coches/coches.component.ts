@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { CocheService } from 'src/app/services/coche.service';
 
 @Component({
@@ -9,12 +10,20 @@ import { CocheService } from 'src/app/services/coche.service';
 export class CochesComponent {
 
   listaCoches: any[] = [];
-  marca: string = '';
+ /*  ----- ANTIGUAS SIN VALIDACIONES ----- */
+  /* marca: string = '';
   price: number = 0;
-  image: string = '';
+  image: string = ''; */
+
+  /*  ----- NUEVAS CON VALIDACIONES ----- */
+  cocheForm = this.formulario.group({
+    marca:  ['', [Validators.required, Validators.minLength(2)]],
+    precio: [0, [Validators.required, Validators.min(1)]],
+    imagen: ['', Validators.required]
+  });
   cocheSeleccionado: any = null;
 
-  constructor(private servicioCoche: CocheService ){}
+  constructor(private formulario: FormBuilder, private servicioCoche: CocheService ){}
 
   /* Inicializa la vida del componente */
   /* Eliminar y modificar */
@@ -23,39 +32,41 @@ export class CochesComponent {
   }
 
   addCoche() {
-    if(this.marca.trim() && this.price > 0 && this.image.trim()) {
-      if (this.cocheSeleccionado) {
-      // --- MODO EDICIÓN ---
-      // Llamamos al nuevo método del servicio
-      this.servicioCoche.actualizarCoche(
-        this.cocheSeleccionado.id, 
-        this.marca, 
-        this.price, 
-        this.image
-      );
-      this.cocheSeleccionado = null; // Salimos del modo edición
-    } else {
-      // --- MODO CREACIÓN ---
-      this.servicioCoche.addCoche(this.marca, this.price, this.image);
-    }
+    if (this.cocheForm.invalid) return;
 
-    // Limpiamos el formulario (común para ambos casos)
-    this.marca = '';
-    this.price = 0;
-    this.image = '';
+    const datosCoche = this.cocheForm.value;
+
+    const marca  = datosCoche.marca  ?? '';   // si es null/undefined → ''
+    const imagen = datosCoche.imagen ?? '';
+    const precio = Number(datosCoche.precio) || 0;
+    const km = 0; // Valor por defecto para km al añadir un coche
+
+    if (this.cocheSeleccionado) {
+      this.servicioCoche.actualizarCoche(
+        this.cocheSeleccionado.id,
+        marca,
+        precio,
+        km,
+        imagen
+      );
+      this.cocheSeleccionado = null;
+    } else {
+      this.servicioCoche.addCoche(marca, precio, km, imagen);
     }
+    this.cocheForm.reset({ marca: '', precio: 0, imagen: '' });
+
   }
 
   eliminarCoche(coche: any) {
     this.servicioCoche.eliminarCoche(coche.id);
   }
 
-  modificarCoche(coche: any) {
-    this.cocheSeleccionado = coche; // Guardamos el coche que estamos editando
-  
-    // Rellenamos el formulario con sus datos
-    this.marca = coche.marca;
-    this.price = coche.price;
-    this.image = coche.image;
+  modificarCoche(coche: any): void {
+    this.cocheSeleccionado = coche;
+    this.cocheForm.patchValue({
+      marca:  coche.marca,
+      precio: coche.price,
+      imagen: coche.image
+    });
   }
 }

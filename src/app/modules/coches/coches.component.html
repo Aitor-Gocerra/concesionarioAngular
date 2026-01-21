@@ -1,21 +1,28 @@
 <div class="main-container">
-    <!-- Columna izquierda - Formulario -->
+    <!-- Columna izquierda - Formulario reactivo -->
     <div class="form-section">
-        <h2>Formulario de registro</h2>
-        <div class="form-container">
-            <label>Marca:</label>
-            <input type="text" [(ngModel)]="marca" placeholder="Ej: Audi">
-            
-            <label>Precio:</label>
-            <input type="number" [(ngModel)]="price" placeholder="Ej: 20000">
+    <h2>Alta / Edición</h2>
 
-            <label>URL Imagen:</label>
-            <input type="text" [(ngModel)]="image" placeholder="Pegar URL de imagen">
+    <form [formGroup]="cocheForm" (ngSubmit)="addCoche()" class="form-container">
+        <label>Marca:</label>
+        <input type="text" formControlName="marca" placeholder="Ej: Audi">
+        <div *ngIf="cocheForm.get('marca')?.invalid && cocheForm.get('marca')?.touched"
+            style="color:crimson; font-size:0.8rem;">Mínimo 2 letras</div>
 
-            <button (click)="addCoche()">
-                {{ cocheSeleccionado ? 'Actualizar' : 'Agregar' }} Coche
-            </button>
-        </div>
+        <label>Precio:</label>
+        <input type="number" formControlName="precio" placeholder="Ej: 20000">
+        <div *ngIf="cocheForm.get('precio')?.invalid && cocheForm.get('precio')?.touched"
+            style="color:crimson; font-size:0.8rem;">Precio > 0</div>
+
+        <label>URL Imagen:</label>
+        <input type="text" formControlName="imagen" placeholder="Pegar URL">
+        <div *ngIf="cocheForm.get('imagen')?.invalid && cocheForm.get('imagen')?.touched"
+            style="color:crimson; font-size:0.8rem;">Imagen obligatoria</div>
+
+        <button type="submit" [disabled]="cocheForm.invalid">
+        {{ cocheSeleccionado ? 'Actualizar' : 'Agregar' }} Coche
+        </button>
+    </form>
     </div>
 
     <!-- Columna derecha - Lista de coches -->
@@ -27,7 +34,8 @@
                 
                 <h3>{{ coche.marca }}</h3>
                 <p [appMarcarPrecio]="coche.price">Precio: {{ coche.price }} €</p>
-                
+                <p>{{ coche.km | km }}</p>
+
                 <div class="botones">
                     <button class="btn-edit" (click)="modificarCoche(coche)">Editar</button>
                     <button class="btn-delete" (click)="eliminarCoche(coche)">Eliminar</button>

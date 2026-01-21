@@ -26,3 +26,21 @@ h1::after {
     margin: 15px auto 0;
     border-radius: 2px;
 }
+
+header {
+  background: #11575d;
+  color: white;
+  padding: 1rem;
+}
+
+nav a {
+  color: white;
+  margin-right: 1rem;
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+
+nav a:hover {
+  opacity: 0.8;
+}

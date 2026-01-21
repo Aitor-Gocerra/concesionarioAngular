@@ -15,9 +15,6 @@
         "@schematics/angular:service": {
           "path": "src/app/services"
         },
-        "@schematics/angular:pipe": {
-          "path": "src/app/pipes"
-        },
         "@schematics/angular:module": {
           "path": "src/app/modules"
         }
