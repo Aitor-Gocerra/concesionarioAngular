@@ -1,44 +1,97 @@
-<div class="main-container">
-    <!-- Columna izquierda - Formulario reactivo -->
-    <div class="form-section">
-    <h2>Alta / Edición</h2>
+<div class="contenedor-fluido py-4">
+    <div class="fila g-4">
+        <!-- Columna izquierda - Formulario -->
+        <div class="columna-lg-4 columna-xl-3">
+            <div class="tarjeta sombra-sm posicion-fija" style="top: 20px;">
+                <div class="tarjeta-encabezado fondo-primario texto-blanco centrado">
+                    <h2 class="h4 mb-0">Alta / Edición</h2>
+                </div>
+                <div class="tarjeta-cuerpo">
+                    <form [formGroup]="cocheForm" (ngSubmit)="addCoche()">
+                        <div class="mb-3">
+                            <label for="marca" class="etiqueta-formulario negrita">Marca:</label>
+                            <input 
+                                type="text" 
+                                id="marca"
+                                class="control-formulario" 
+                                formControlName="marca" 
+                                placeholder="Ej: Audi"
+                                [class.es-invalido]="cocheForm.get('marca')?.invalid && cocheForm.get('marca')?.touched">
+                            <div class="retroalimentacion-invalida" *ngIf="cocheForm.get('marca')?.invalid && cocheForm.get('marca')?.touched">
+                                Mínimo 2 letras
+                            </div>
+                        </div>
 
-    <form [formGroup]="cocheForm" (ngSubmit)="addCoche()" class="form-container">
-        <label>Marca:</label>
-        <input type="text" formControlName="marca" placeholder="Ej: Audi">
-        <div *ngIf="cocheForm.get('marca')?.invalid && cocheForm.get('marca')?.touched"
-            style="color:crimson; font-size:0.8rem;">Mínimo 2 letras</div>
+                        <div class="mb-3">
+                            <label for="precio" class="etiqueta-formulario negrita">Precio:</label>
+                            <input 
+                                type="number" 
+                                id="precio"
+                                class="control-formulario" 
+                                formControlName="precio" 
+                                placeholder="Ej: 20000"
+                                [class.es-invalido]="cocheForm.get('precio')?.invalid && cocheForm.get('precio')?.touched">
+                            <div class="retroalimentacion-invalida" *ngIf="cocheForm.get('precio')?.invalid && cocheForm.get('precio')?.touched">
+                                Precio debe ser mayor a 0
+                            </div>
+                        </div>
 
-        <label>Precio:</label>
-        <input type="number" formControlName="precio" placeholder="Ej: 20000">
-        <div *ngIf="cocheForm.get('precio')?.invalid && cocheForm.get('precio')?.touched"
-            style="color:crimson; font-size:0.8rem;">Precio > 0</div>
+                        <div class="mb-3">
+                            <label for="imagen" class="etiqueta-formulario negrita">URL Imagen:</label>
+                            <input 
+                                type="text" 
+                                id="imagen"
+                                class="control-formulario" 
+                                formControlName="imagen" 
+                                placeholder="Pegar URL"
+                                [class.es-invalido]="cocheForm.get('imagen')?.invalid && cocheForm.get('imagen')?.touched">
+                            <div class="retroalimentacion-invalida" *ngIf="cocheForm.get('imagen')?.invalid && cocheForm.get('imagen')?.touched">
+                                Imagen obligatoria
+                            </div>
+                        </div>
 
-        <label>URL Imagen:</label>
-        <input type="text" formControlName="imagen" placeholder="Pegar URL">
-        <div *ngIf="cocheForm.get('imagen')?.invalid && cocheForm.get('imagen')?.touched"
-            style="color:crimson; font-size:0.8rem;">Imagen obligatoria</div>
+                        <button 
+                            type="submit" 
+                            class="boton boton-exito ancho-completo py-2 negrita" 
+                            [disabled]="cocheForm.invalid">
+                            <i class="icono-verificar-circulo me-2"></i>
+                            {{ cocheSeleccionado ? 'Actualizar' : 'Agregar' }} Coche
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
 
-        <button type="submit" [disabled]="cocheForm.invalid">
-        {{ cocheSeleccionado ? 'Actualizar' : 'Agregar' }} Coche
-        </button>
-    </form>
-</div>
-
-    <!-- Columna derecha - Lista de coches -->
-    <div class="list-section">
-        <h2>Lista de Coches</h2>
-        <div class="contenedor">
-            <div class="tarjeta" *ngFor="let coche of listaCoches">
-                <img [src]="coche.image" alt="coche" width="150" style="object-fit: cover; height: 100px;">
-                
-                <h3>{{ coche.marca }}</h3>
-                <p [appMarcarPrecio]="coche.price">Precio: {{ coche.price }} €</p>
-                <p>{{ coche.km | km }}</p>
-
-                <div class="botones">
-                    <button class="btn-edit" (click)="modificarCoche(coche)">Editar</button>
-                    <button class="btn-delete" (click)="eliminarCoche(coche)">Eliminar</button>
+        <!-- Columna derecha - Lista de coches -->
+        <div class="columna-lg-8 columna-xl-9">
+            <div class="mb-4">
+                <h2 class="centrado texto-lg-inicio">Lista de Coches</h2>
+            </div>
+            
+            <div class="fila fila-columnas-1 fila-columnas-md-2 fila-columnas-xl-3 g-4">
+                <div class="columna" *ngFor="let coche of listaCoches">
+                    <div class="tarjeta altura-completa sombra-sm tarjeta-hover">
+                        <img [src]="coche.image" class="tarjeta-imagen-superior" alt="{{coche.marca}}" style="height: 200px; object-fit: cover;">
+                        
+                        <div class="tarjeta-cuerpo">
+                            <h3 class="tarjeta-titulo h5 negrita">{{ coche.marca }}</h3>
+                            <p class="tarjeta-texto mb-2" [appMarcarPrecio]="coche.price">
+                                <strong>Precio:</strong> {{ coche.price }} €
+                            </p>
+                            <p class="tarjeta-texto texto-apagado">
+                                <i class="icono-velocimetro me-1"></i>{{ coche.km | km }}
+                            </p>
+                        </div>
+                        
+                        <div class="tarjeta-pie fondo-blanco sin-borde flex gap-2 pb-3">
+                            <button class="boton boton-primario flex-llenar" (click)="modificarCoche(coche)">
+                                <i class="icono-lapiz-cuadrado me-1"></i>Editar
+                            </button>
+                            <button class="boton boton-peligro flex-llenar" (click)="eliminarCoche(coche)">
+                                <i class="icono-basura me-1"></i>Eliminar
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
