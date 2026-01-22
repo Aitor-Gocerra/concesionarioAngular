@@ -50,6 +50,25 @@
                             </div>
                         </div>
 
+                        <div class="mb-3">
+                            <label class="etiqueta-formulario negrita d-block mb-2">Extras:</label>
+                            <div class="fila">
+                                <div class="columna-auto" *ngFor="let extra of extrasDisponibles">
+                                    <div class="form-check">
+                                        <input 
+                                            class="form-check-input" 
+                                            type="checkbox" 
+                                            [value]="extra" 
+                                            (change)="onCheckboxChange($event)"
+                                            [checked]="cocheForm.value.extras?.includes(extra)"
+                                            id="extra-{{extra}}">
+                                        <label class="form-check-label" for="extra-{{extra}}">
+                                            {{ extra }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <button 
                             type="submit" 
                             class="boton boton-exito ancho-completo py-2 negrita" 
