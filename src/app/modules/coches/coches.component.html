@@ -100,6 +100,16 @@
                             <p class="tarjeta-texto texto-apagado">
                                 <i class="icono-velocimetro me-1"></i>{{ coche.km | km }}
                             </p>
+                            <div *ngIf="coche.extras && coche.extras.length > 0" class="mt-2 border-top pt-2">
+                                <strong class="d-block mb-1" style="font-size: 0.9rem;">Extras:</strong>
+                                <div class="d-flex flex-wrap gap-1">
+                                    <span *ngFor="let extra of coche.extras" 
+                                        class="badge" 
+                                        style="background-color: #e9ecef; color: #333; font-size: 0.8rem; margin-right: 4px; padding: 4px 8px; border-radius: 4px;">
+                                        {{ extra }}
+                                    </span>
+                                </div>
+                            </div>    
                         </div>
                         
                         <div class="tarjeta-pie fondo-blanco sin-borde flex gap-2 pb-3">

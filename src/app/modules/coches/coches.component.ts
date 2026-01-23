@@ -64,7 +64,8 @@ export class CochesComponent {
     const imagen = datosCoche.imagen ?? '';
     const precio = Number(datosCoche.precio) || 0;
     const km = 0; // Valor por defecto para km al añadir un coche
-    const extras = this.cocheForm.value.extras || []; 
+    // Añadimos 'as string[]'
+    const extras = (datosCoche.extras as string[]) || [];
 
     if (this.cocheSeleccionado) {
       this.servicioCoche.actualizarCoche(
